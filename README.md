@@ -14,7 +14,7 @@
 
 
 ## Techincal implementation:
-* Springboot is used for building the microservices with Java as the development language. 
+* Spring Boot is used for building the microservices with Java as the development language. 
 * H2 database is used to capture the images.
         
 
