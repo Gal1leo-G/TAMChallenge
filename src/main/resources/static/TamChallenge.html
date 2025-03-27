@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>TAM Challenge</h2>
+<select name="animal" id="animals">
+    <option value="cat">cat</option>
+    <option value="dog">dog</option>
+    <option value="bear">bear</option>
+</select>
+<input id="selectAnimal" type="number" name="Number of images" />
+<br>
+<button id="upload-button" onclick="uploadFile()"> Upload </button>
+
+<br>
+<br>
+<br>
+<button id="getLastImage" onclick="getLastImage()">Get Last Image</button>
+<div id="image-container"></div>
+
+<script>
+    async function uploadFile() {
+
+        const animal = document.getElementById('animals').value
+
+        const amount = document.getElementById('selectAnimal').value
+        const url = 'http://localhost:8080/fetchsave/'+animal+'/'+amount
+
+        console.log("animal is "+animal);
+        console.log("amount is "+amount);
+        console.log("url is "+url);
+
+
+        fetch(url).then(result => result.text())
+            .then(text => alert(text));
+
+    }
+
+    async function getLastImage(){
+        const url = 'http://localhost:8080/fetchLastPhoto';
+        fetch(url).then((response) => response.blob())
+            .then((blob) => {
+                const imageUrl = URL.createObjectURL(blob);
+                const imageElement = document.createElement("img");
+                imageElement.src = imageUrl;
+                const container = document.getElementById("image-container");
+                container.appendChild(imageElement);
+            });
+    }
+</script>
+</body>
+</html>
